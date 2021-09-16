@@ -4,7 +4,7 @@ module Styles = {
   open CssJs
 
   let section = style(. [
-    color(rgb(7, 102, 120)),
+    color(rgb(60, 56, 54)),
     display(flexBox),
     flexDirection(column),
     marginLeft(px(12)),
@@ -14,9 +14,9 @@ module Styles = {
 
   let paragraph = style(. [margin2(~v=px(8), ~h=px(0))])
 
-  let link = style(. [color(white), marginRight(px(24))])
+  let link = style(. [color(rgb(7, 102, 120)), marginRight(px(24))])
 
-  let icon = style(. [marginTop(px(32))])
+  let icon = style(. [marginTop(px(16))])
 }
 
 type itemType =
@@ -42,6 +42,22 @@ module Item = {
   }
 }
 
+module Email = {
+  @react.component
+  let make = (~href) => {
+    <a className={Styles.link} href={"mailto:" ++ href ++ "?Subject=Whats%20up!"} target="_top">
+      {href |> rs}
+    </a>
+  }
+}
+
+module Link = {
+  @react.component
+  let make = (~href, ~children) => {
+    <a className={Styles.link} href rel="noopener noreferrer" target="_blank"> children </a>
+  }
+}
+
 @react.component
 let make = (~profile: Data.profile) => {
   let age =
@@ -53,6 +69,16 @@ let make = (~profile: Data.profile) => {
   <section className={Styles.section}>
     <Title bg={CssJs.rgb(214, 93, 14)} id={profile.name}> {profile.name |> rs} </Title>
     <Caption> {profile.role |> rs} </Caption>
-    <div className={Styles.details}> <Item prefix={String("Age: ")} sufix={String(age)} /> </div>
+    <div className={Styles.details}>
+      <Item prefix={String("Age: ")} sufix={String(age)} />
+      <Item prefix={String("Email: ")} sufix={Component(<Email href={profile.email} />)} />
+      <Item prefix={String("Location: ")} sufix={String(profile.location)} />
+    </div>
+    <div className={Styles.icon}>
+      <Link href={profile.media.discord}> <Discord /> </Link>
+      <Link href={profile.media.linkedin}> <Linkedin /> </Link>
+      <Link href={profile.media.github}> <GitHub /> </Link>
+      <Link href={profile.media.twitter}> <Twitter /> </Link>
+    </div>
   </section>
 }
