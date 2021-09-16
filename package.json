@@ -1,0 +1,28 @@
+{
+  "name": "fabiano-dev",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "rescript",
+    "clean": "rescript clean -with-deps",
+    "start": "rescript build -w",
+    "dev": "concurrently \"parcel ./public/index.html\" \"rescript build -w\" "
+  },
+  "keywords": [
+    "rescript"
+  ],
+  "dependencies": {
+    "@rescript/react": "^0.10.3",
+    "bs-css-emotion": "^4.0.1",
+    "concurrently": "^6.2.1",
+    "parcel": "^2.0.0-rc.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rescript": "*"
+  },
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-nightly.1981"
+  }
+}
