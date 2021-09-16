@@ -10,8 +10,8 @@ module Styles = {
   ])
 
   let image = style(. [
-    border(px(6), solid, rgb(81, 78, 105)),
-    borderRadius(#percent(50.0)),
+    border(px(6), solid, rgb(214, 93, 14)),
+    borderRadius(#percent(25.0)),
     height(px(256)),
     width(px(256)),
   ])
@@ -19,6 +19,8 @@ module Styles = {
 
 @react.component
 let make = (~avatar: string) => {
+  Js.log(avatar)
+
   <section className={Styles.container}>
     <img alt="Avatar" src={avatar} className={Styles.image} />
   </section>

@@ -11,7 +11,12 @@
   },
   "suffix": ".bs.js",
   "reason": { "react-jsx": 3 },
-  "bs-dependencies": ["@rescript/react", "bs-css", "bs-css-emotion"],
+  "bs-dependencies": [
+    "@rescript/react",
+    "bs-css",
+    "bs-css-emotion",
+    "reason-date-fns"
+  ],
   "warnings": {
     "error": "+101"
   }

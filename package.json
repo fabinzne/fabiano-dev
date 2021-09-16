@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "rescript",
     "clean": "rescript clean -with-deps",
     "start": "rescript build -w",
-    "dev": "concurrently \"parcel ./public/index.html\" \"rescript build -w\" "
+    "dev": "concurrently \"parcel ./public/index.html\" \"rescript build -w\" ",
+    "start:prod": "npx http-server dist/"
   },
   "keywords": [
     "rescript"
@@ -20,6 +20,7 @@
     "parcel": "^2.0.0-rc.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "reason-date-fns": "^1.0.2",
     "rescript": "*"
   },
   "devDependencies": {

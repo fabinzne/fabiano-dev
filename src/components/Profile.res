@@ -4,7 +4,7 @@ module Styles = {
   let root = style(. [
     display(flexBox),
     alignItems(center),
-    backgroundColor(rgb(13, 17, 23)),
+    backgroundColor(rgb(235, 219, 178)),
     display(flexBox),
     justifyContent(center),
     minHeight(vh(100.0)),
@@ -21,5 +21,7 @@ module Styles = {
 
 @react.component
 let make = (~profile: Data.profile) => {
-  <div className={Styles.root}> <Image avatar={profile.avatar} /> </div>
+  <div className={Styles.root}>
+    <div className={Styles.container}> <Image avatar={profile.avatar} /> <Resume profile /> </div>
+  </div>
 }
