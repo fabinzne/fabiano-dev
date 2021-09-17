@@ -1,13 +1,14 @@
 {
   "name": "fabiano-dev",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.bs.js",
   "license": "MIT",
   "scripts": {
     "build": "rescript",
     "clean": "rescript clean -with-deps",
     "start": "rescript build -w",
     "dev": "concurrently \"parcel ./public/index.html\" \"rescript build -w\" ",
+    "build:prod": "npm run build && parcel build ./public/index.html --out-dir dist --public-url ./",
     "start:prod": "npx http-server dist/"
   },
   "keywords": [
@@ -18,6 +19,7 @@
     "bs-css-emotion": "^4.0.1",
     "concurrently": "^6.2.1",
     "parcel": "^2.0.0-rc.0",
+    "parcel-bundler": "^1.12.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "reason-date-fns": "^1.0.2",

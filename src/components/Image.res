@@ -19,8 +19,6 @@ module Styles = {
 
 @react.component
 let make = (~avatar: string) => {
-  Js.log(avatar)
-
   <section className={Styles.container}>
     <img alt="Avatar" src={avatar} className={Styles.image} />
   </section>
