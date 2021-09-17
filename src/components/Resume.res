@@ -67,7 +67,7 @@ let make = (~profile: Data.profile) => {
     ) |> Js.Float.toString
 
   <section className={Styles.section}>
-    <Title bg={CssJs.rgb(214, 93, 14)} id={profile.name}> {profile.name |> rs} </Title>
+    <Title id={profile.name}> {profile.name |> rs} </Title>
     <Caption> {profile.role |> rs} </Caption>
     <div className={Styles.details}>
       <Item prefix={String("Age: ")} sufix={String(age)} />
