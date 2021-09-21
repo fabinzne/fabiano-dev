@@ -3,6 +3,7 @@ type media = {
   github: string,
   discord: string,
   twitter: string,
+  skillset: string,
 }
 
 type profile = {
@@ -30,6 +31,7 @@ let raw = {
       github: "https://github.com/Fabianolvs",
       twitter: "https://twitter.com/fabinzne",
       discord: "https://discordapp.com/users/325447369942368256",
+      skillset: "https://notch-lamp-2b4.notion.site/SkillSet-9636364c1b824dd8a81713d1aba08448",
     },
   },
 }

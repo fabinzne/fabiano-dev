@@ -73,6 +73,10 @@ let make = (~profile: Data.profile) => {
       <Item prefix={String("Age: ")} sufix={String(age)} />
       <Item prefix={String("Email: ")} sufix={Component(<Email href={profile.email} />)} />
       <Item prefix={String("Location: ")} sufix={String(profile.location)} />
+      <Item
+        prefix={None}
+        sufix={Component(<Link href={profile.media.skillset}> {"SkillSet" |> rs} </Link>)}
+      />
     </div>
     <div className={Styles.icon}>
       <Link href={profile.media.discord}> <Discord /> </Link>
