@@ -8,6 +8,7 @@ module Styles = {
     display(flexBox),
     flexDirection(column),
     marginLeft(px(12)),
+    media(. "(max-width: 768px)", [alignSelf(center)]),
   ])
 
   let details = style(. [fontSize(rem(0.8)), marginTop(px(8))])
