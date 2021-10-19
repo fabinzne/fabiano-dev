@@ -28,7 +28,7 @@ let raw = {
     location: "Belo Horizonte - MG",
     media: {
       linkedin: "https://www.linkedin.com/in/fabiano-luiz-531318182/",
-      github: "https://github.com/Fabianolvs",
+      github: "https://github.com/fabinzne",
       twitter: "https://twitter.com/fabinzne",
       discord: "https://discordapp.com/users/325447369942368256",
       skillset: "https://notch-lamp-2b4.notion.site/SkillSet-9636364c1b824dd8a81713d1aba08448",
