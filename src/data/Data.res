@@ -22,7 +22,7 @@ let raw = {
   profile: {
     avatar: "https://avatars.githubusercontent.com/u/50997688?v=4",
     name: "Fabiano Luiz",
-    email: "hello@fabianoluiz.dev",
+    email: "fabianolvs3@gmail.com",
     birth: "1999-09-20",
     role: "Software Engineer",
     location: "Belo Horizonte - MG",
