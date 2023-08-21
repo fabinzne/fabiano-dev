@@ -25,7 +25,7 @@
     "rescript": "*"
   },
   "devDependencies": {
-    "concurrently": "^6.2.1",
-    "@parcel/transformer-image": "^2.0.0-nightly.1981"
+    "@parcel/transformer-image": "^2.0.0-nightly.1981",
+    "concurrently": "^6.2.1"
   }
 }
