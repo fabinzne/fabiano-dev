@@ -83,7 +83,6 @@ let make = (~profile: Data.profile) => {
       <Link href={profile.media.discord}> <Discord /> </Link>
       <Link href={profile.media.linkedin}> <Linkedin /> </Link>
       <Link href={profile.media.github}> <GitHub /> </Link>
-      <Link href={profile.media.twitter}> <Twitter /> </Link>
     </div>
   </section>
 }
