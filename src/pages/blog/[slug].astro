@@ -1,0 +1,116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Get all posts and sort them by date
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Find current post index
+const currentIndex = sortedPosts.findIndex(p => p.slug === post.slug);
+
+// Get previous and next posts
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+---
+
+<Layout title={post.data.title} currentTab="blog">
+  <article class="markdown-content">
+    <header class="post-header">
+      <h1>{post.data.title}</h1>
+      <div class="post-meta">
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+        {post.data.author && (
+          <span class="author">by {post.data.author}</span>
+        )}
+      </div>
+    </header>
+    <Content />
+  </article>
+
+  <nav class="post-navigation">
+    {prevPost && (
+      <a href={`/blog/${prevPost.slug}`} class="nav-link prev">
+        <span class="nav-label">← Previous Post</span>
+        <span class="nav-title">{prevPost.data.title}</span>
+      </a>
+    )}
+    {nextPost && (
+      <a href={`/blog/${nextPost.slug}`} class="nav-link next">
+        <span class="nav-label">Next Post →</span>
+        <span class="nav-title">{nextPost.data.title}</span>
+      </a>
+    )}
+  </nav>
+</Layout>
+
+<style>
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-meta {
+    color: var(--fg2);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .author {
+    margin-left: 1rem;
+  }
+
+  .post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--bg2);
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: inherit;
+    max-width: 45%;
+  }
+
+  .nav-link:hover {
+    color: var(--accent);
+  }
+
+  .nav-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--fg2);
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-title {
+    display: block;
+    font-weight: 500;
+  }
+
+  .prev {
+    text-align: left;
+  }
+
+  .next {
+    text-align: right;
+  }
+</style> 

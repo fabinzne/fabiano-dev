@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<Layout title="Blog" currentTab="blog">
+	<div class="blog-grid">
+		{posts.map((post) => (
+			<a href={`/blog/${post.slug}`} class="blog-card">
+				<article>
+					<h3>{post.data.title}</h3>
+					<p>{post.data.description}</p>
+					<div class="date">
+						<time datetime={post.data.date.toISOString()}>
+							{post.data.date.toLocaleDateString()}
+						</time>
+					</div>
+				</article>
+			</a>
+		))}
+	</div>
+</Layout>
+
+<style>
+	.blog-card {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		transition: transform 0.2s ease;
+	}
+
+	.blog-card:hover {
+		transform: translateY(-2px);
+	}
+</style> 

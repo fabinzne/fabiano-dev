@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+
+<Layout title="Projects" currentTab="projects">
+  <div class="projects-container">
+    {projects.map((project) => (
+      <article class="project-card">
+        <h3>{project.data.title}</h3>
+        <p>{project.data.description}</p>
+        <div class="project-stats">
+          {project.data.stars && (
+            <div class="stat">
+              <i class="fas fa-star"></i>
+              <span>{project.data.stars} stars</span>
+            </div>
+          )}
+          {project.data.forks && (
+            <div class="stat">
+              <i class="fas fa-code-branch"></i>
+              <span>{project.data.forks} forks</span>
+            </div>
+          )}
+          {project.data.contributions && (
+            <div class="stat">
+              <i class="fas fa-code-commit"></i>
+              <span>{project.data.contributions} contributions</span>
+            </div>
+          )}
+        </div>
+        <div class="links">
+          {project.data.github && (
+            <a href={project.data.github} target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+              GitHub
+            </a>
+          )}
+          {project.data.demo && (
+            <a href={project.data.demo} target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
+              Live Demo
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</Layout> 

@@ -1,0 +1,412 @@
+// Gruvbox Material Theme Colors
+$bg0: #282828;
+$bg1: #32302f;
+$bg2: #32302f;
+$bg3: #45403d;
+$bg4: #45403d;
+$bg5: #5a524c;
+$fg0: #d4be98;
+$fg1: #d4be98;
+$fg2: #928374;
+$fg3: #928374;
+$fg4: #928374;
+$red: #ea6962;
+$green: #a9b665;
+$yellow: #d8a657;
+$blue: #7daea3;
+$purple: #d3869b;
+$aqua: #89b482;
+$gray: #928374;
+$orange: #e78a4e;
+
+// Light Theme Colors
+$light-bg0: #fbf1c7;
+$light-bg1: #f2e5bc;
+$light-bg2: #f2e5bc;
+$light-bg3: #d5c4a1;
+$light-bg4: #d5c4a1;
+$light-bg5: #bdae93;
+$light-fg0: #3c3836;
+$light-fg1: #3c3836;
+$light-fg2: #665c54;
+$light-fg3: #665c54;
+$light-fg4: #665c54;
+$light-red: #cc241d;
+$light-green: #98971a;
+$light-yellow: #d79921;
+$light-blue: #458588;
+$light-purple: #b16286;
+$light-aqua: #689d6a;
+$light-gray: #665c54;
+$light-orange: #d65d0e;
+
+// Theme Mixins
+@mixin dark-theme {
+  background-color: $bg0;
+  color: $fg0;
+
+  .sidebar {
+    background-color: $bg1;
+    border-right: 1px solid $bg3;
+  }
+
+  .tab-button {
+    background: #1e1e1e;
+    color: #858585;
+    border: 1px solid #333;
+
+    &:hover {
+      background: #2d2d2d;
+      color: #fff;
+    }
+
+    &.active {
+      background: #2d2d2d;
+      color: #fff;
+      border-color: #0d9488;
+    }
+  }
+
+  .blog-card,
+  .project-card {
+    background-color: $bg1;
+  }
+
+  code,
+  pre {
+    background-color: $bg2;
+  }
+}
+
+@mixin light-theme {
+  background-color: $light-bg0;
+  color: $light-fg0;
+
+  .sidebar {
+    background-color: $light-bg1;
+    border-right: 1px solid $light-bg3;
+  }
+
+  .tab-button {
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #ddd;
+
+    &:hover {
+      background: #e5e5e5;
+      color: #333;
+    }
+
+    &.active {
+      background: #e5e5e5;
+      color: #333;
+      border-color: #0d9488;
+    }
+  }
+
+  .blog-card,
+  .project-card {
+    background-color: $light-bg1;
+  }
+
+  code,
+  pre {
+    background-color: $light-bg2;
+  }
+}
+
+// Theme Classes
+body {
+  &.dark-theme {
+    @include dark-theme;
+  }
+
+  &.light-theme {
+    @include light-theme;
+  }
+}
+
+// Theme Toggle Button
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Reset and base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Fira Code", monospace;
+  background-color: $bg0;
+  color: $fg0;
+  line-height: 1.6;
+}
+
+// IDE Container
+.ide-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+// Sidebar
+.sidebar {
+  width: 300px;
+  background-color: $bg1;
+  padding: 2rem;
+  border-right: 1px solid $bg3;
+}
+
+.profile-section {
+  text-align: center;
+
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 3px solid $blue;
+  }
+
+  h2 {
+    color: $yellow;
+    margin-bottom: 0.5rem;
+  }
+
+  .bio {
+    color: $fg2;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    a {
+      color: $fg2;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}
+
+// Main Content
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+// Tabs
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid $bg3;
+  padding-bottom: 0.5rem;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #1e1e1e;
+  color: #858585;
+  text-decoration: none;
+  border: 1px solid #333;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #2d2d2d;
+    color: #fff;
+  }
+
+  &.active {
+    background: #2d2d2d;
+    color: #fff;
+    border-color: #0d9488;
+  }
+
+  i {
+    font-size: 14px;
+  }
+}
+
+// Blog Grid
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.blog-card {
+  background-color: $bg1;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: $yellow;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $fg2;
+    margin-bottom: 1rem;
+  }
+
+  .date {
+    color: $gray;
+    font-size: 0.9rem;
+  }
+}
+
+// Project Cards
+.project-card {
+  background-color: $bg1;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    color: $yellow;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $fg2;
+    margin-bottom: 1rem;
+  }
+
+  .project-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    color: $fg2;
+    font-size: 0.9rem;
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      i {
+        color: $blue;
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $blue;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        color: $aqua;
+      }
+    }
+  }
+}
+
+// Markdown Content
+.markdown-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $yellow;
+    margin: 1.5rem 0 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid $blue;
+  }
+
+  h2 {
+    margin-top: 2rem;
+  }
+
+  h3 {
+    margin-top: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  h4 {
+    padding-left: 3rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+  }
+
+  ul,
+  ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: $blue;
+    text-decoration: none;
+
+    &:hover {
+      color: $aqua;
+    }
+  }
+
+  code {
+    background-color: $bg2;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: "Fira Code", monospace;
+  }
+
+  pre {
+    background-color: $bg2;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+}

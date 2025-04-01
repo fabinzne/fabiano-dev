@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const projects = [
+  {
+    title: "Project 1",
+    description: "Description of your first project",
+    github: "https://github.com/yourusername/project1",
+    docs: "https://docs.example.com/project1"
+  },
+  {
+    title: "Project 2",
+    description: "Description of your second project",
+    github: "https://github.com/yourusername/project2",
+    docs: "https://docs.example.com/project2"
+  }
+];
+---
+
+<Layout title="Your Name - Personal Website">
+  <div class="tab-pane" id="about">
+    <div class="markdown-content">
+      <h1>About Me</h1>
+      <p>Welcome to my personal website! I'm a passionate developer who loves creating amazing things.</p>
+      <p>I specialize in web development, with expertise in modern frameworks and technologies.</p>
+      <h2>Skills</h2>
+      <ul>
+        <li>Frontend Development (React, Vue, Angular)</li>
+        <li>Backend Development (Node.js, Python)</li>
+        <li>Database Management</li>
+        <li>DevOps & Cloud Computing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="blog">
+    <div class="blog-grid">
+      {posts.map(post => (
+        <article class="blog-card">
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+          <div class="date">{post.data.date.toLocaleDateString()}</div>
+          <a href={`/blog/${post.slug}`}>Read more →</a>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="tab-pane" id="projects">
+    {projects.map(project => (
+      <div class="project-card">
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+        <div class="links">
+          <a href={project.github} target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href={project.docs} target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-book"></i> Documentation
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .tab-pane {
+    display: none;
+  }
+
+  .tab-pane.active {
+    display: block;
+  }
+</style>
+
+<script>
+  // Tab content switching
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-tab');
+      
+      tabPanes.forEach(pane => {
+        pane.classList.remove('active');
+        if (pane.id === targetTab) {
+          pane.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // Show about tab by default
+  document.querySelector('#about').classList.add('active');
+</script>

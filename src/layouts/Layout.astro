@@ -1,0 +1,135 @@
+---
+import '../styles/global.scss';
+import { getCollection } from 'astro:content';
+
+interface Props {
+	title: string;
+	currentTab?: string;
+}
+
+const { title, currentTab = 'about' } = Astro.props;
+
+// Get collections to check for published items
+const blogPosts = await getCollection('blog');
+const projects = await getCollection('projects');
+
+// Social media flags
+const SHOW_TWITTER = false;
+const SHOW_DISCORD = true;
+const SHOW_INSTAGRAM = true;
+const SHOW_LINKEDIN = true;
+const SHOW_GITHUB = true;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Personal website" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+		<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+	</head>
+	<body class="dark-theme">
+		<button class="theme-toggle" id="theme-toggle">
+			<i class="fas fa-moon"></i>
+		</button>
+		<div class="ide-container">
+			<aside class="sidebar">
+				<div class="profile-section">
+					<img src="https://github.com/fabinzne.png" alt="Profile" class="profile-image" />
+					<h2>Your Name</h2>
+					<p class="bio">Your brief bio goes here. A passionate developer who loves creating amazing things.</p>
+					<div class="social-links">
+						{SHOW_TWITTER && (
+							<a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-twitter"></i>
+							</a>
+						)}
+						{SHOW_DISCORD && (
+							<a href="https://discord.com/users/325447369942368256" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-discord"></i>
+							</a>
+						)}
+						{SHOW_INSTAGRAM && (
+							<a href="https://www.instagram.com/fabinzne/" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-instagram"></i>
+							</a>
+						)}
+						{SHOW_LINKEDIN && (
+							<a href="https://www.linkedin.com/in/fabiano-luiz-531318182/" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-linkedin"></i>
+							</a>
+						)}
+						{SHOW_GITHUB && (
+							<a href="https://github.com/fabinzne" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-github"></i>
+							</a>
+						)}
+					</div>
+				</div>
+			</aside>
+			<main class="main-content">
+				<div class="tabs">
+					<a href="/" class={`tab-button ${currentTab === 'about' ? 'active' : ''}`}>
+						<i class="fas fa-file-alt"></i>
+						about.md
+					</a>
+					{blogPosts.length > 0 && (
+						<a href="/blog" class={`tab-button ${currentTab === 'blog' ? 'active' : ''}`}>
+							<i class="fas fa-folder"></i>
+							blog/
+						</a>
+					)}
+					{projects.length > 0 && (
+						<a href="/projects" class={`tab-button ${currentTab === 'projects' ? 'active' : ''}`}>
+							<i class="fas fa-folder"></i>
+							projects/
+						</a>
+					)}
+				</div>
+				<div class="tab-content">
+					<slot />
+				</div>
+			</main>
+		</div>
+	</body>
+</html>
+
+<script>
+	const themeToggle = document.getElementById('theme-toggle');
+	const body = document.body;
+	const icon = themeToggle.querySelector('i');
+
+	// Check for saved theme preference
+	const savedTheme = localStorage.getItem('theme') || 'dark';
+	body.classList.add(`${savedTheme}-theme`);
+	updateIcon(savedTheme);
+
+	themeToggle.addEventListener('click', () => {
+		const isDark = body.classList.contains('dark-theme');
+		const newTheme = isDark ? 'light' : 'dark';
+		
+		body.classList.remove('dark-theme', 'light-theme');
+		body.classList.add(`${newTheme}-theme`);
+		
+		localStorage.setItem('theme', newTheme);
+		updateIcon(newTheme);
+	});
+
+	function updateIcon(theme) {
+		icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+	}
+</script>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>
