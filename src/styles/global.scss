@@ -63,7 +63,7 @@ $light-orange: #d65d0e;
     &.active {
       background: #2d2d2d;
       color: #fff;
-      border-color: #0d9488;
+      border-color: var(--accent-color);
     }
   }
 
@@ -100,7 +100,7 @@ $light-orange: #d65d0e;
     &.active {
       background: #e5e5e5;
       color: #333;
-      border-color: #0d9488;
+      border-color: var(--accent-color);
     }
   }
 
@@ -206,7 +206,7 @@ body {
       transition: color 0.3s ease;
 
       &:hover {
-        color: $blue;
+        color: var(--accent-color);
       }
     }
   }
@@ -230,31 +230,26 @@ body {
 .tab-button {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: #1e1e1e;
-  color: #858585;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-secondary);
   text-decoration: none;
-  border: 1px solid #333;
-  border-bottom: none;
-  border-radius: 6px 6px 0 0;
-  font-family: "Fira Code", monospace;
-  font-size: 14px;
-  transition: all 0.2s ease;
+  border-radius: 4px;
+  transition: all 0.3s ease;
 
   &:hover {
-    background: #2d2d2d;
-    color: #fff;
+    background-color: var(--bg-secondary);
+    color: var(--accent-color);
   }
 
   &.active {
-    background: #2d2d2d;
-    color: #fff;
-    border-color: #0d9488;
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+    font-weight: 500;
   }
 
   i {
-    font-size: 14px;
+    font-size: 1rem;
   }
 }
 
@@ -408,5 +403,41 @@ body {
     border-radius: 8px;
     overflow-x: auto;
     margin: 1rem 0;
+  }
+}
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --border-color: #e0e0e0;
+  --accent-color: rgb(214, 93, 14);
+  --accent-hover: rgb(184, 80, 12);
+}
+
+.dark-theme {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --border-color: #404040;
+  --accent-color: rgb(255, 140, 50);
+  --accent-hover: rgb(255, 160, 70);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  a {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+    font-size: 1.2rem;
+
+    &:hover {
+      color: var(--accent-color);
+    }
   }
 }
