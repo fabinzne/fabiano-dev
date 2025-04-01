@@ -2,9 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { fetchGitHubProjects } from '../../utils/github';
 
-console.log("Starting to fetch projects in projects/index.astro");
 const projects = await fetchGitHubProjects();
-console.log("Projects fetched:", projects);
 ---
 
 <Layout title="Projects" currentTab="projects">

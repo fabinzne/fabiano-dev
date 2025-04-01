@@ -24,11 +24,13 @@ export interface Project {
 
 export async function fetchGitHubProjects(): Promise<Project[]> {
   try {
-    console.log("Starting to fetch GitHub repositories...");
-    console.log(
-      "GitHub Token:",
-      import.meta.env.GITHUB_TOKEN ? "Present" : "Missing"
-    );
+    const token = import.meta.env.GITHUB_TOKEN;
+
+    if (!token) {
+      throw new Error(
+        "GitHub token is missing. Please check your environment variables."
+      );
+    }
 
     const response = await fetch(
       "https://api.github.com/users/fabinzne/repos",
@@ -36,46 +38,35 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
         headers: {
           Accept: "application/vnd.github.v3+json",
           "User-Agent": "fabinzne",
-          Authorization: `token ${import.meta.env.GITHUB_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
 
-    console.log("GitHub API Response Status:", response.status);
-    console.log(
-      "GitHub API Response Headers:",
-      Object.fromEntries(response.headers.entries())
-    );
-
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("GitHub API error response:", errorText);
       throw new Error(
         `GitHub API error: ${response.status} ${response.statusText}`
       );
     }
 
     const repos: GitHubRepo[] = await response.json();
-    console.log("Raw GitHub API response:", repos);
-    console.log("Number of repositories found:", repos.length);
 
     // Filter public repositories that are not forks
     const publicRepos = repos.filter(
       (repo) => !repo.fork && repo.visibility === "public"
     );
-    console.log("Number of public repositories:", publicRepos.length);
 
     const projects: Project[] = await Promise.all(
       publicRepos.map(async (repo) => {
         try {
-          console.log(`Fetching README for ${repo.name}...`);
           const readmeResponse = await fetch(
             `https://api.github.com/repos/fabinzne/${repo.name}/readme`,
             {
               headers: {
                 Accept: "application/vnd.github.v3.raw",
                 "User-Agent": "fabinzne",
-                Authorization: `token ${import.meta.env.GITHUB_TOKEN}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -86,9 +77,6 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
             // Extract first paragraph as description
             const firstParagraph = readmeContent.split("\n\n")[0];
             description = firstParagraph.replace(/[#*`]/g, "").trim();
-            console.log(`README content for ${repo.name}:`, description);
-          } else {
-            console.log(`No README found for ${repo.name}`);
           }
 
           return {
@@ -102,7 +90,6 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
             topics: repo.topics || [],
           };
         } catch (error) {
-          console.error(`Error processing repository ${repo.name}:`, error);
           return {
             title: repo.name,
             description: "Error loading description",
@@ -117,10 +104,8 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
       })
     );
 
-    console.log("Final projects array:", projects);
     return projects;
   } catch (error) {
-    console.error("Error in fetchGitHubProjects:", error);
     throw error;
   }
 }
