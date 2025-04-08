@@ -3,35 +3,58 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog');
-const projects = [
-  {
-    title: "Project 1",
-    description: "Description of your first project",
-    github: "https://github.com/yourusername/project1",
-    docs: "https://docs.example.com/project1"
-  },
-  {
-    title: "Project 2",
-    description: "Description of your second project",
-    github: "https://github.com/yourusername/project2",
-    docs: "https://docs.example.com/project2"
+
+const calculateAge = () => {
+  const birthDate = new Date(1999, 8, 20); // September 20, 1999
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
   }
-];
+  return age;
+};
+
+const currentAge = calculateAge();
 ---
 
 <Layout title="Your Name - Personal Website">
   <div class="tab-pane" id="about">
     <div class="markdown-content">
-      <h1>About Me</h1>
-      <p>Welcome to my personal website! I'm a passionate developer who loves creating amazing things.</p>
-      <p>I specialize in web development, with expertise in modern frameworks and technologies.</p>
-      <h2>Skills</h2>
-      <ul>
-        <li>Frontend Development (React, Vue, Angular)</li>
-        <li>Backend Development (Node.js, Python)</li>
-        <li>Database Management</li>
-        <li>DevOps & Cloud Computing</li>
-      </ul>
+  <h2>Public information</h2>
+  <p>Hello my name is Fabiano Luiz and currently I'm a Software Engineer at CI&T, I'm currently using Go.
+  I'm currently learning and in love with some languages (D and Haskell).
+  If someday I have the opportunity to work with Functional Programming I'll be happy.</p>
+  
+  <p>I want to start to contribute to open-source community.</p>
+
+  <h2>Detailed information</h2>
+  <ul>
+    <li><strong>Name</strong>: Fabiano Luiz</li>
+    <li><strong>Age</strong>: <span id="dynamic-age">{currentAge}</span></li>
+    <li><strong>Living in</strong>: Belo Horizonte, MG - Brazil</li>
+    <li><strong>Stack</strong>: Javascript - React.JS - React Native - NodeJS - Typescript</li>
+  </ul>
+
+  <h2>Curiosities about me</h2>
+  <ul>
+    <li>I watch and talk about animes all the time;</li>
+    <li>I started coding using <strong>Lua</strong>, to create my own open Tibia server, but I stopped studying for some time for no reason;</li>
+    <li>I made some sites for OT servers using php and html + css when I was 13 years old;</li>
+  </ul>
+
+  <h2>Current Setup</h2>
+  <ul>
+    <li>Asus prime b450m gaming/br</li>
+    <li>Ryzen 5 3500X</li>
+    <li>GTX 1660 Super OC</li>
+    <li>32 GB ram 3200Mhz</li>
+    <li>1 TB ssd NVME</li>
+    <li>500gb ssd SATA</li>
+    <li>1 TB HDD SATA</li>
+    <li>Dual boot Manjaro Linux and Windows 10</li>
+  </ul>
     </div>
   </div>
 
@@ -46,23 +69,6 @@ const projects = [
         </article>
       ))}
     </div>
-  </div>
-
-  <div class="tab-pane" id="projects">
-    {projects.map(project => (
-      <div class="project-card">
-        <h3>{project.title}</h3>
-        <p>{project.description}</p>
-        <div class="links">
-          <a href={project.github} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-          <a href={project.docs} target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-book"></i> Documentation
-          </a>
-        </div>
-      </div>
-    ))}
   </div>
 </Layout>
 
