@@ -221,7 +221,6 @@ body {
   overflow-y: auto; /* Enable vertical scrolling for main content */
   position: relative; /* Needed for positioning the theme toggle button */
   max-height: 100vh; /* Limit the height to the viewport */
-
 }
 
 // Tabs
@@ -535,7 +534,7 @@ body {
   .project-card {
     background-color: transparent;
     border-radius: 0;
-      padding: 1rem 0;
+    padding: 1rem 0;
     margin-bottom: 0;
   }
 
@@ -561,40 +560,105 @@ body {
   }
 }
 
-
 /* Mobile Styles */
 @media (max-width: 768px) {
-  .ide-container {
-    flex-direction: column;
-  }
-
-  .main-content {
-    order: 1; /* Ensure main content is above sidebar */
+  .profile-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     width: 100%;
-    padding: 1rem;
-    overflow-y: auto; /* Enable scrolling */
-    max-height: calc(100vh - 150px); /* Adjust based on sidebar height */
+    justify-content: center;
+    gap: 4px;
+
+    .profile-image {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .bio {
+      display: none;
+    }
+
+    .social-links {
+      width: 100%;
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: space-around; // Spread items with equal spacing
+      padding: 0 10%; // Add padding on both sides to create empty space in middle
+
+      a {
+        // Optional: adjust icon size if needed
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .profile-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+    background-color: rgba(214, 93, 14, 0.05); // Subtle highlight background
+    border-top: 2px solid rgba(214, 93, 14, 0.2); // Subtle top border
+
+    .profile-image {
+      width: 45px;
+      height: 45px;
+      margin: 0 0.75rem 0 0;
+      border: 2px solid var(--accent-color); // Accent colored border
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin: 0;
+      font-weight: 600;
+      color: var(--accent-color); // Use accent color for name
+    }
+
+    .bio {
+      display: none;
+    }
+
+    .social-links {
+      width: 100%;
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 5%;
+
+      a {
+        font-size: 1.3rem;
+        color: var(--text-secondary);
+        opacity: 0.8;
+        transition: all 0.2s ease;
+        padding: 0.4rem;
+        border-radius: 50%;
+
+        &:hover {
+          color: var(--accent-color);
+          opacity: 1;
+          transform: translateY(-2px);
+          background-color: rgba(214, 93, 14, 0.1);
+        }
+      }
+    }
   }
 
   .sidebar {
-    order: 2;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 120px;
-    padding: 1rem;
-    border-right: none;
-    border-top: 1px solid $bg3;
-    overflow-x: auto; /* Enable horizontal scrolling if content overflows */
-    white-space: nowrap; /* Prevent content from wrapping */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align items to the start */
+    height: auto;
+    min-height: 90px;
+    padding: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); // Add shadow to sidebar
   }
-
-  .profile-section {
-    display: flex;
-    align-items: center;
-    text-align: left;
-
+}
