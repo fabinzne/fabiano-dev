@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Gruvbox Material Theme Colors
 $bg0: #282828;
 $bg1: #32302f;
@@ -527,25 +529,25 @@ body {
   }
 
   .blog-card + .blog-card {
-    border-top: 1px solid lighten($bg0, 5%);
+    border-top: 1px solid color.adjust($bg0, $lightness: 5%);
   }
 
   .project-card {
     background-color: transparent;
     border-radius: 0;
-    padding: 1rem 0;
+      padding: 1rem 0;
     margin-bottom: 0;
   }
 
   .project-card + .project-card {
-    border-top: 1px solid lighten($bg0, 5%);
+    border-top: 1px solid color.adjust($bg0, $lightness: 5%);
   }
 
   /* Add divider between blog posts and projects */
   .blog-card:last-child {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid lighten($bg0, 10%);
+    border-bottom: 1px solid color.adjust($bg0, $lightness: 10%);
   }
 
   .theme-toggle {
@@ -558,3 +560,41 @@ body {
     padding: 0;
   }
 }
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .ide-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    order: 1; /* Ensure main content is above sidebar */
+    width: 100%;
+    padding: 1rem;
+    overflow-y: auto; /* Enable scrolling */
+    max-height: calc(100vh - 150px); /* Adjust based on sidebar height */
+  }
+
+  .sidebar {
+    order: 2;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    padding: 1rem;
+    border-right: none;
+    border-top: 1px solid $bg3;
+    overflow-x: auto; /* Enable horizontal scrolling if content overflows */
+    white-space: nowrap; /* Prevent content from wrapping */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start */
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    text-align: left;
+
