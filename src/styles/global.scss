@@ -216,6 +216,10 @@ body {
 .main-content {
   flex: 1;
   padding: 2rem;
+  overflow-y: auto; /* Enable vertical scrolling for main content */
+  position: relative; /* Needed for positioning the theme toggle button */
+  max-height: 100vh; /* Limit the height to the viewport */
+
 }
 
 // Tabs
@@ -261,7 +265,6 @@ body {
 }
 
 .blog-card {
-  background-color: $bg1;
   border-radius: 8px;
   padding: 1.5rem;
   transition: transform 0.3s ease;
@@ -287,7 +290,6 @@ body {
 }
 
 // Project Cards
-.project-card {
   background-color: $bg1;
   border-radius: 8px;
   padding: 1.5rem;
@@ -439,5 +441,120 @@ body {
     &:hover {
       color: var(--accent-color);
     }
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .ide-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    order: 1; /* Ensure main content is above sidebar */
+    width: 100%;
+    padding: 1rem;
+    overflow-y: auto; /* Enable scrolling */
+    max-height: calc(100vh - 150px); /* Adjust based on sidebar height */
+  }
+
+  .sidebar {
+    order: 2;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    padding: 1rem;
+    border-right: none;
+    border-top: 1px solid $bg3;
+    overflow-x: auto; /* Enable horizontal scrolling if content overflows */
+    white-space: nowrap; /* Prevent content from wrapping */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start */
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    .profile-image {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .bio {
+      display: none; /* Hide bio on mobile */
+    }
+
+    .social-links {
+      justify-content: flex-start;
+    }
+  }
+
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    justify-content: flex-start; /* Align tabs to the start */
+    padding-bottom: 0;
+    margin-bottom: 1rem;
+    border-bottom: none;
+  }
+
+  .tab-button {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .blog-grid {
+    display: block;
+  }
+
+  .blog-card {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 1rem 0;
+    margin-bottom: 0;
+  }
+
+  .blog-card + .blog-card {
+    border-top: 1px solid lighten($bg0, 5%);
+  }
+
+  .project-card {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 1rem 0;
+    margin-bottom: 0;
+  }
+
+  .project-card + .project-card {
+    border-top: 1px solid lighten($bg0, 5%);
+  }
+
+  /* Add divider between blog posts and projects */
+  .blog-card:last-child {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lighten($bg0, 10%);
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .markdown-content {
+    padding: 0;
   }
 }
