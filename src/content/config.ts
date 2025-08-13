@@ -23,7 +23,18 @@ const projectsCollection = defineCollection({
   }),
 });
 
+const tilsCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    github: z.string().optional(),
+    date: z.date(),
+    author: z.string().optional(),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   projects: projectsCollection,
+  tils: tilsCollection,
 };

@@ -258,6 +258,34 @@ body {
   }
 }
 
+// Til Grid
+.til-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.til-card {
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+
+  h3 {
+    color: $yellow;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $fg2;
+    margin-bottom: 1rem;
+  }
+
+  .date {
+    color: $gray;
+    font-size: 0.9rem;
+  }
+}
+
 // Blog Grid
 .blog-grid {
   display: grid;

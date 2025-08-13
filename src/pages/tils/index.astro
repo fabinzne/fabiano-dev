@@ -1,0 +1,210 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const tils = await getCollection('tils');
+// Sort by date, oldest first (chronological order)
+const sortedTils = tils.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+// Render all content
+const tilsWithContent = await Promise.all(
+  sortedTils.map(async (til) => {
+    const { Content } = await til.render();
+    return { til, Content };
+  })
+);
+---
+
+<Layout title="Today I've Learned" currentTab="til">
+  <div class="til-grid">
+    {tilsWithContent.map(({ til, Content }) => (
+      <article class="til-card">
+        <header class="til-header">
+          <h3>{til.data.title}</h3>
+          <time datetime={til.data.date.toISOString()}>
+            {til.data.date.toLocaleDateString()}
+          </time>
+          {til.data.author && (
+            <span class="author">by {til.data.author}</span>
+          )}
+          {til.data.github && (
+            <a href={til.data.github} class="github-link" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          )}
+        </header>
+        <div class="til-content">
+          <Content />
+        </div>
+      </article>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .til-grid {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .til-card {
+    width: 100%;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    transition: background-color 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+
+  .til-card:last-child {
+    border-bottom: none;
+  }
+
+
+  .til-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  }
+
+  .til-header h3 {
+    margin: 0;
+    flex: 1;
+  }
+
+  .til-header time {
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+
+  .author {
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+
+  .github-link {
+    font-size: 0.875rem;
+    color: var(--accent-color, #3b82f6);
+    text-decoration: none;
+  }
+
+  .github-link:hover {
+    text-decoration: underline;
+  }
+
+  .til-description {
+    margin-bottom: 1.5rem;
+  }
+
+  .til-description p {
+    margin: 0;
+    font-style: italic;
+    opacity: 0.8;
+    font-size: 1.1rem;
+  }
+
+  .til-content {
+    line-height: 1.7;
+  }
+
+  /* Style the rendered markdown content for short articles */
+  .til-content :global(h1),
+  .til-content :global(h2),
+  .til-content :global(h3),
+  .til-content :global(h4) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .til-content :global(h1):first-child,
+  .til-content :global(h2):first-child,
+  .til-content :global(h3):first-child,
+  .til-content :global(h4):first-child {
+    margin-top: 0;
+  }
+
+  .til-content :global(h2) {
+    font-size: 1.3rem;
+    color: var(--accent-color, #3b82f6);
+  }
+
+  .til-content :global(h3) {
+    font-size: 1.1rem;
+  }
+
+  .til-content :global(p) {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+  }
+
+  .til-content :global(pre) {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    border-left: 3px solid var(--accent-color, #3b82f6);
+  }
+
+  .til-content :global(code) {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'Courier New', monospace;
+  }
+
+  .til-content :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .til-content :global(ul),
+  .til-content :global(ol) {
+    margin-bottom: 1.2rem;
+    padding-left: 1.8rem;
+  }
+
+  .til-content :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .til-content :global(blockquote) {
+    border-left: 4px solid var(--accent-color, #3b82f6);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+  }
+
+  .til-content :global(a) {
+    color: var(--accent-color, #3b82f6);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+
+  .til-content :global(strong) {
+    font-weight: 600;
+    color: var(--accent-color, #3b82f6);
+  }
+
+  .til-content :global(em) {
+    font-style: italic;
+    opacity: 0.9;
+  }
+</style>

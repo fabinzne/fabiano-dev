@@ -11,6 +11,7 @@ const { title, currentTab = 'about' } = Astro.props;
 
 // Get collections to check for published items
 const blogPosts = await getCollection('blog');
+const tils = await getCollection('tils');
 
 // Social media flags
 const SHOW_TWITTER = false;
@@ -85,6 +86,12 @@ const SHOW_GITHUB = true;
 						<a href="/blog" class={`tab-button ${currentTab === 'blog' ? 'active' : ''}`}>
 							<i class="fas fa-folder"></i>
 							blog/
+						</a>
+					)}
+					{tils.length > 0 && (
+						<a href="/tils" class={`tab-button ${currentTab === 'til' ? 'active' : ''}`}>
+							<i class="fas fa-file-alt"></i>
+							til/
 						</a>
 					)}
 					<a href="/projects" class={`tab-button ${currentTab === 'projects' ? 'active' : ''}`}>
