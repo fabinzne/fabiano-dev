@@ -58,8 +58,11 @@ const projects = await fetchGitHubProjects();
 
 <style>
 	.projects-container {
+		display: flex;
+		flex-direction: column;
 		padding: 1rem;
 		width: 100%;
+		gap: 16px;
 	}
 
 	.project-card {
