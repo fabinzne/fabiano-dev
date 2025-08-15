@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 
 const tils = await getCollection('tils');
 // Sort by date, oldest first (chronological order)
-const sortedTils = tils.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const sortedTils = tils.sort((a, b) => new Date(a.data.date).valueOf() -new Date(b.data.date).valueOf());
 
 // Render all content
 const tilsWithContent = await Promise.all(
@@ -24,7 +24,7 @@ const tilsWithContent = await Promise.all(
           <time datetime={new Date(til.data.date).toISOString()}}>
             {til.data.date}
           </time>
-          {til.data.author && (
+            {til.data.author && (
             <span class="author">by {til.data.author}</span>
           )}
           {til.data.github && (
