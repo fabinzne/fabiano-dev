@@ -32,7 +32,7 @@ false
 
 Because we're querying about something thatis not a fact on our knowledge base.
 
-### Seconds concepts
+### Second concepts
 
 We already learned what is a fact, so we need to learn what is a rule.
 
