@@ -1,6 +1,6 @@
 ---
 title: My first session of learning Prolog
-date: 2025-09-14
+date: August 14, 2025
 author: Fabiano Luiz
 ---
 

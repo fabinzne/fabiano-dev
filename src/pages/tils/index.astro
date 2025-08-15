@@ -21,8 +21,8 @@ const tilsWithContent = await Promise.all(
       <article class="til-card">
         <header class="til-header">
           <h3>{til.data.title}</h3>
-          <time datetime={til.data.date.toISOString()}>
-            {til.data.date.toLocaleDateString()}
+          <time datetime={new Date(til.data.date).toISOString()}}>
+            {til.data.date}
           </time>
           {til.data.author && (
             <span class="author">by {til.data.author}</span>
