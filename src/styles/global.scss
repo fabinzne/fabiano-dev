@@ -484,7 +484,7 @@ body {
     width: 100%;
     padding: 1rem;
     overflow-y: auto; /* Enable scrolling */
-    max-height: calc(100vh - 150px); /* Adjust based on sidebar height */
+    max-height: calc(100vh - 90px); /* Adjust based on sidebar height */
   }
 
   .sidebar {
