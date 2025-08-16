@@ -531,14 +531,15 @@ body {
   }
 
   .tabs {
-    overflow-x: auto;
-    white-space: nowrap;
-    justify-content: flex-start; /* Align tabs to the start */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
     padding-bottom: 0;
+    padding-right: 60px;
     margin-bottom: 1rem;
     border-bottom: none;
   }
-
   .tab-button {
     padding: 0.5rem;
     font-size: 0.9rem;
@@ -636,6 +637,7 @@ body {
     width: 100%;
     justify-content: center;
     padding: 0.75rem;
+    padding-bottom: 0;
     background-color: rgba(214, 93, 14, 0.05); // Subtle highlight background
     border-top: 2px solid rgba(214, 93, 14, 0.2); // Subtle top border
 
@@ -663,7 +665,6 @@ body {
       margin-top: 0.75rem;
       display: flex;
       justify-content: space-around;
-      padding: 0.5rem 5%;
 
       a {
         font-size: 1.3rem;

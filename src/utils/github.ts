@@ -104,7 +104,7 @@ export async function fetchGitHubProjects(): Promise<Project[]> {
       })
     );
 
-    return projects;
+    return projects.sort((a, b) => +b.stars - +a.stars);
   } catch (error) {
     throw error;
   }
