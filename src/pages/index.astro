@@ -16,9 +16,9 @@ const calculateAge = () => {
   return age;
 };
 
+
 const currentAge = calculateAge();
 ---
-
 <Layout title="Fabiano Luiz - Personal Website">
   <div class="tab-pane" id="about">
     <div class="markdown-content">
@@ -64,8 +64,8 @@ const currentAge = calculateAge();
         <article class="blog-card">
           <h3>{post.data.title}</h3>
           <p>{post.data.description}</p>
-          <div class="date">{post.data.date.toLocaleDateString()}</div>
-          <a href={`/blog/${post.slug}`}>Read more →</a>
+          <div class="date">{post.data.date}</div>
+          <a href={`/blog/${post.id}`}>Read more →</a>
         </article>
       ))}
     </div>

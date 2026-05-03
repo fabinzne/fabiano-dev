@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { render } from "astro:content";
 
 const tils = await getCollection('tils');
 // Sort by date, oldest first (chronological order)
@@ -9,7 +10,7 @@ const sortedTils = tils.sort((a, b) => new Date(a.data.date).valueOf() -new Date
 // Render all content
 const tilsWithContent = await Promise.all(
   sortedTils.map(async (til) => {
-    const { Content } = await til.render();
+    const { Content } = await render(til);
     return { til, Content };
   })
 );

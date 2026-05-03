@@ -1,24 +1,25 @@
 ---
+import { render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 // Get all posts and sort them by date
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // Find current post index
-const currentIndex = sortedPosts.findIndex(p => p.slug === post.slug);
+const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
 
 // Get previous and next posts
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
@@ -31,7 +32,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
       <h1>{post.data.title}</h1>
       <div class="post-meta">
         <time datetime={new Date(post.data.date).toISOString()}>
-          {post.data.date.toLocaleDateString('en-US', {
+          {new Date(post.data.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -47,13 +48,13 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
   <nav class="post-navigation">
     {prevPost && (
-      <a href={`/blog/${prevPost.slug}`} class="nav-link prev">
+      <a href={`/blog/${prevPost.id}`} class="nav-link prev">
         <span class="nav-label">← Previous Post</span>
         <span class="nav-title">{prevPost.data.title}</span>
       </a>
     )}
     {nextPost && (
-      <a href={`/blog/${nextPost.slug}`} class="nav-link next">
+      <a href={`/blog/${nextPost.id}`} class="nav-link next">
         <span class="nav-label">Next Post →</span>
         <span class="nav-title">{nextPost.data.title}</span>
       </a>

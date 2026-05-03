@@ -8,13 +8,13 @@ const posts = await getCollection('blog');
 <Layout title="Blog" currentTab="blog">
 	<div class="blog-grid">
 		{posts.map((post) => (
-			<a href={`/blog/${post.slug}`} class="blog-card">
+			<a href={`/blog/${post.id}`} class="blog-card">
 				<article>
 					<h3>{post.data.title}</h3>
 					<p>{post.data.description}</p>
 					<div class="date">
 						<time datetime={new Date(post.data.date).toISOString()}>
-							{post.data.date.toLocaleDateString()}
+							{post.data.date}
 						</time>
 					</div>
 				</article>
