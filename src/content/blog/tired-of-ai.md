@@ -1,5 +1,6 @@
 ---
 title: I'm really tired of AI
+description: AI sucks!
 date: May 2, 2026
 author: Fabiano Luiz
 ---
